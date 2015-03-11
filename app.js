@@ -16,6 +16,26 @@ var socket = io
       socket.emit('test_message', 'some data')
     })
 
+// this will be called when Cylon is fully initialized, which is when we should open up our WebSocket connection.
+var cylonReady = function(my) {
+  io
+    .of('/soundsocket')
+    .on('connection', function (socket) {
+      registerSocketHandlers(my, socket);
+    })
+}
+
+// this will be called each time a socket is opened, so each client will receive their own events when buttons are pushed.
+var registerSocketHandlers = function(my, socket) {
+  my.button.on('push', function() {
+    socket.emit('button', 'push')
+  })
+
+  my.button.on('release', function() {
+    socket.emit('button', 'release')
+  })
+}
+
 cylon.robot({
   connections: { // tell Cylon how we will be connecting to our devices
     edison: { adaptor: 'intel-iot' }
@@ -23,16 +43,6 @@ cylon.robot({
   devices: {
     button: { driver: 'button', pin: 2 }
   }
-}).on('ready', function(my) {
-  console.log('cylon ready')
-
-  my.button.on('push', function() { // when the button is pushed, this callback will be triggered
-    console.log("Button pushed!")
-  })
-
-  my.button.on('release', function() { // when the button is released, this callback will be triggered
-    console.log("Button released!")
-  })
-})
+}).on('ready', cylonReady)
 
 cylon.start()

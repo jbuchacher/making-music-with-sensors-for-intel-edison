@@ -6,8 +6,8 @@
       console.log('connected to socket')
     })
 
-    socketConnection.on('test_message', function(data) {
-      console.log('received data:', data)
+    socketConnection.on('button', function(buttonState) {
+      console.log('button state:', buttonState)
     })
   </script>
   <body>
