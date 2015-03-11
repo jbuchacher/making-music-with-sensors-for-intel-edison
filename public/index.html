@@ -1,15 +1,8 @@
 <html>
   <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
-  <script type="text/javascript">
-    var socketConnection = io.connect('http://192.168.1.11:8080/soundsocket')
-    socketConnection.on('connect', function () {
-      console.log('connected to socket')
-    })
-
-    socketConnection.on('button', function(buttonState) {
-      console.log('button state:', buttonState)
-    })
-  </script>
+  <script src="js/timbre.dev.js"></script>
+  <script src="js/subcollider.js"></script>
+  <script src="js/playsounds.js"></script>
   <body>
     Hello world!
   </body>
