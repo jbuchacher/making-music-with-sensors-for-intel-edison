@@ -3,8 +3,12 @@
   <script type="text/javascript">
     var socketConnection = io.connect('http://192.168.1.11:8080/soundsocket')
     socketConnection.on('connect', function () {
-      console.log('connected to socket');
-    });
+      console.log('connected to socket')
+    })
+
+    socketConnection.on('test_message', function(data) {
+      console.log('received data:', data)
+    })
   </script>
   <body>
     Hello world!

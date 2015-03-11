@@ -7,8 +7,9 @@ app.use(express.static(__dirname + '/public')) // tell express to serve anything
 
 server.listen(8080) // tell express to start listening for requests on port 8080
 
-io
+var socket = io
   .of('/soundsocket') // establish a route to connect to using the Socket.IO client
   .on('connection', function (socket) {
-  console.log('client connected') // each time a client establishes a connection, log a message to the console that the app is running on (on the Edison).
+    console.log('client connected') // each time a client establishes a connection, log a message to the console that the app is running on (on the Edison).
+    socket.emit('test_message', 'some data')
   })
